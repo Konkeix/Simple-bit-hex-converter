@@ -3,8 +3,12 @@ from tkinter import ttk
 
 root = Tk()
 root.title("Converter")
+root.resizable(False, False)
+root.config(borderwidth=5,relief="ridge")
 
-bit0 = ttk.Label(root, text="Bit 7", padding=2).grid(row=0, column=0, sticky="nesw")
+# Top Labels
+bit0 = ttk.Label(root, text="Bit 7", padding=2)
+bit0.grid(row=0, column=0, sticky="nesw")
 bit1 = ttk.Label(root, text="Bit 6", padding=2).grid(row=0, column=1, sticky="nesw")
 bit2 = ttk.Label(root, text="Bit 5", padding=2).grid(row=0, column=2, sticky="nesw")
 bit3 = ttk.Label(root, text="Bit 4", padding=2).grid(row=0, column=3, sticky="nesw")
@@ -14,6 +18,7 @@ bit6 = ttk.Label(root, text="Bit 1", padding=2).grid(row=0, column=6, sticky="ne
 bit7 = ttk.Label(root, text="Bit 0", padding=2).grid(row=0, column=7, sticky="nesw")
 
 def update():
+    """Update the binary labels and hex entry field."""
     binaryVal = []
     for x in bitxV:
         binaryVal.append(str(x.get()))
@@ -31,7 +36,6 @@ def update():
     ret = "".join(ret)
     ret = "= " + ret
     entVar.set(ret)
-
 
 def hextobin(event):
     entryStr = entVar.get()
@@ -54,6 +58,7 @@ def hextobin(event):
     update()
 
 def reset():
+    """Reset duh"""
     for x in bitxV:
         x.set(0)
     for n in range(8):
@@ -61,6 +66,7 @@ def reset():
         
     update()
 
+# Input checkboxes
 bitxV = []
 checkFramex = []
 checkButtonx = []
@@ -86,10 +92,11 @@ for n in range(8):
 
 resetBut = ttk.Button(root, text="Reset", command=reset).grid(row=1, column=8, sticky="nesw")
 
+# Hex Entry
 entVar = StringVar()
 entVar.set('= 0x00')
 hexEntry = ttk.Entry(root, textvariable=entVar, width=8)
 hexEntry.bind("<Return>", hextobin)
 hexEntry.grid(row=2, column=8, sticky="nesw")
 
-root.mainloop() # ttk bs
+root.mainloop()
